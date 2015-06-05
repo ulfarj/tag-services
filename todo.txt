@@ -1,0 +1,4 @@
+
+Setup mongodb : http://docs.mongodb.org/master/tutorial/install-mongodb-on-windows/
+
+mongod.exe --dbpath d:\programs\mongodb\data

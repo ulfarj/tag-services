@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+</head>
+
+<body>
+
+<div ng-controller="tagController">
+
+  <h2>Article</h2>
+  <table>
+    <tr>    
+      <td>Title:</td> 
+      <td>
+        <input type="text" ng-model="title" />
+      </td>
+    </tr>
+    <tr>
+      <td>Url:</td> 
+      <td><input type="text" ng-model="url" /></td>
+    </tr>
+    <tr>
+      <td>Description:</td> 
+      <td><input type="text" ng-model="description" /></td>
+    </tr>
+    <tr>
+      <td>Logo:</td> 
+      <td><input type="text" ng-model="logo" /></td>
+    </tr>
+    <tr>    
+      <td><button ng-click="addTag()">Add</button></td>
+    </tr>  
+  </table>
+  <br/>
+  <div ng-repeat="tag in taglist">
+    <div>
+      {{tag.title}} -
+      {{tag.url}}
+    </div>
+  </div>
+
+  <h2>Category</h2>
+  <table>
+    <tr>      
+        <td>Name</td>
+        <td><input type="text" ng-model="categoryName" />
+    </tr>
+    <tr>    
+      <td><button ng-click="addCategory()">Add</button></td>
+    </tr>  
+  </table>
+  <div ng-repeat="category in categories">
+    <div>
+      {{category.name}}
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+function tagController($scope,$http) {
+
+  $scope.addTag = function() {
+
+    var url = "http://localhost:3030/tag";
+
+    $http.post(url, {title: $scope.title, url: $scope.url, description: $scope.description, logo: $scope.logo })
+      .success(function(response)
+      {
+         $scope.taglist = response;
+      });
+  };
+
+  loadTags = function() {
+
+    var url = "http://localhost:3030/tags";
+
+    $http.get(url)
+      .success(function(response)
+      {
+        $scope.taglist = response;
+
+        console.log(response);
+      })
+      .error(function(response) {
+        console.log(response);
+      });
+  };
+
+  $scope.addCategory = function() {
+
+    var url = "http://localhost:3030/category";
+
+    $http.post(url, {name: $scope.categoryName })
+      .success(function(response)
+      {
+         $scope.categories = response;
+      });
+  };
+
+  loadCategories = function() {
+
+    var url = "http://localhost:3030/categories";
+
+    $http.get(url)
+      .success(function(response)
+      {
+        $scope.categories = response;
+
+        console.log(response);
+      })
+      .error(function(response) {
+        console.log(response);
+      });
+  };
+
+  loadCategories();
+  loadTags();
+}
+
+</script>
+
+</body>
+</html>

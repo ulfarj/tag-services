@@ -1,0 +1,17 @@
+{
+    "name": "tag-it",
+    "description": "tag-it",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "*",
+         "express-json": "*",
+         "body-parser": "*",
+         "urlencode": "*",
+         "mongodb": "*",
+    	 "monk": "*",
+    	 "request": "*",
+         "cheerio": "*",
+         "open": "*"
+    }
+}
